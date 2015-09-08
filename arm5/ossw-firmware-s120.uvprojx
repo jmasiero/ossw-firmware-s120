@@ -488,6 +488,11 @@
               <FileType>1</FileType>
               <FilePath>..\vibration.c</FilePath>
             </File>
+            <File>
+              <FileName>accel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\accel.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1176,6 +1181,11 @@
               <FileName>vibration.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\vibration.c</FilePath>
+            </File>
+            <File>
+              <FileName>accel.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\accel.c</FilePath>
             </File>
           </Files>
         </Group>

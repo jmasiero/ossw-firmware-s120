@@ -11,4 +11,6 @@
 
 void buttons_init(void);
 
+void buttons_process_events(void);
+
 #endif /* BUTTONS_H */

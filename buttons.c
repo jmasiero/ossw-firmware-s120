@@ -4,7 +4,7 @@
 #include "board.h"
 
 static app_timer_id_t         m_button_long_press_timer_id;
-
+static uint8_t last_event[2] = {0, 0};
 
 static void button_handler(uint8_t pin_no, uint8_t button_action);
 
@@ -51,13 +51,26 @@ static void button_long_press_timeout_handler(void * p_context) {
 							  // do nothing
 						}
 							
-						if (pushed) {
-								scr_mngr_handle_event(SCR_EVENT_BUTTON_LONG_PRESSED, 1<<i);
-						} else {
-								scr_mngr_handle_event(SCR_EVENT_BUTTON_PRESSED, 1<<i);
+						if(!last_event[0]) {
+								if (pushed) {
+										last_event[0] = SCR_EVENT_BUTTON_LONG_PRESSED;
+										//scr_mngr_handle_event(SCR_EVENT_BUTTON_LONG_PRESSED, 1<<i);
+								} else {
+										last_event[0] = SCR_EVENT_BUTTON_PRESSED;
+										//scr_mngr_handle_event(SCR_EVENT_BUTTON_PRESSED, 1<<i);
+								}
+								last_event[1] = 1<<i;
 						}
 				}
 	  }
+}
+
+void buttons_process_events() {
+		if (last_event[0]) {
+				scr_mngr_handle_event(last_event[0], last_event[1]);
+				last_event[1] = 0;
+				last_event[0] = 0;
+		}
 }
 
 void buttons_init(void) {

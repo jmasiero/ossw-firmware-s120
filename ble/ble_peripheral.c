@@ -24,6 +24,7 @@
 #include "../notifications.h"
 #include "../spiffs/spiffs.h"
 #include "../screens/scr_watchset.h"
+#include "../accel.h"
 
 #define IS_SRVC_CHANGED_CHARACT_PRESENT  1                                          /**< Include or not the service_changed characteristic. if not enabled, the server's database cannot be changed for the lifetime of the device*/
 
@@ -188,6 +189,18 @@ static void ossw_data_handler(ble_ossw_t * p_ossw, uint8_t * p_data, uint16_t le
 		 case 0x30:
 			    // set ext param
 					set_external_property_data(p_data[1], &p_data[2], length-2);
+					break;
+		 case 0xF0:
+			    // set accel register
+					accel_write_register(p_data[1], p_data[2]);
+					break;
+		 case 0xF1:
+		 {    // read accel register
+					uint8_t result;
+					accel_read_register(p_data[1], &result);
+					uint8_t data[] = {0xF1, result};
+					ble_ossw_string_send(&m_ossw, data, sizeof(data));	
+			}
 					break;
 	 }
 }

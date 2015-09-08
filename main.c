@@ -24,6 +24,7 @@
 #include "buttons.h"
 #include "battery.h"
 #include "vibration.h"
+#include "accel.h"
 #include "notifications.h"
 #include "softdevice_handler.h"
 
@@ -174,6 +175,7 @@ static void init_lcd_with_splash_screen() {
 int main(void)
 {
 	  spi_init();
+		accel_init();
 	  ext_ram_init();
 	  init_lcd_with_splash_screen();
 
@@ -194,7 +196,7 @@ int main(void)
 	  battery_init();
 		vibration_init();
 		notifications_init();
-			
+
     // Enter main loop.
     for (;;)
     {
@@ -202,6 +204,8 @@ int main(void)
 					  rtc_store_current_time();
 				}
 				
+				buttons_process_events();
+				accel_process_events();
 				notifications_process();
 			  
 				scr_mngr_draw_screen();

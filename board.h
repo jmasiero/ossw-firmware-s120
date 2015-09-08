@@ -48,6 +48,9 @@
 #define LCD_ENABLE         6u
 #define LCD_BACKLIGHT      7u
 
+#define ACCEL_INT1				 3u
+#define ACCEL_INT2				 2u
+
 #define VIBRATION_MOTOR   29u
 
 #define TIMEOUT_COUNTER         0x3000uL                     /**< Timeout for SPI transaction in units of loop iterations. */
